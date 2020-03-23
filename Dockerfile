@@ -24,10 +24,8 @@ RUN rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-
 
 RUN yum install -y ffmpeg ffmpeg-devel
 
-RUN echo "load_module modules/ngx_rtmp_module.so;" >> /etc/nginx/nginx.conf
+RUN sed -i "1 i\load_module modules/ngx_rtmp_module.so;" /etc/nginx/nginx.conf
 
-RUN echo $'rtmp {\n\
-include /etc/nginx/conf.d/rtmp/*.conf \n\
-}' >> /etc/nginx/nginx.conf
+RUN sed -i '13 a rtmp {\n\tinclude /etc/nginx/conf.d/rtmp/*.conf;\n}' /etc/nginx/nginx.conf
 
-CMD ["/sbin/nginx", "-g", "'daemon off;'"]
+CMD ["/sbin/nginx", "-g", "daemon off;"]

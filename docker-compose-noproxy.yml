@@ -1,22 +1,28 @@
 version : "3.3"
 
 services:
-    sourceswitcher:
-        image: medcelerate/brave:latest
-        links:
-            - "rtmpproxy:rtmpproxy"
-        ports:
-            - "5000:5000"
+  sourceswitcher:
+    image: medcelerate/brave:latest
+    ports:
+      - "5000:5000"
+    networks:
+      main:
+        aliases:
+          - sourceswitcher
 
-    rtmpproxy:
-        image: medcelerate/nginx:latest
-        links:
-            - "sourceswitcher:sourceswitcher"
-        ports:
-            - "1935:1935"
-            - "8080:80"
-        volumes:
-            - ./conf/nginx_http.conf:/etc/nginx/conf.d/nginx_http.conf
-            - ./conf/nginx_rtmp.conf:/etc/nginx/conf.d/rtmp/nginx_rtmp.conf
-            #- ./hls:/var/hls #Edit this to point to where your hls files should be written for your web server.
 
+  rtmpproxy:
+    image: medcelerate/serg-nginx-rtmp:latest
+    ports:
+      - "1935:1935"
+      - "8080:80"
+    volumes:
+      - ./conf/nginx_http.conf:/etc/nginx/conf.d/nginx_http.conf
+      - ./conf/nginx_rtmp.conf:/etc/nginx/conf.d/rtmp/nginx_rtmp.conf
+      #- ./hls:/var/hls #Edit this to point to where your hls files should be written for your web server.
+    networks:
+      main:
+        aliases:
+          - sourceswitcher
+networks:
+    main:
