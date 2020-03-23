@@ -28,4 +28,4 @@ RUN sed -i "1 i\load_module modules/ngx_rtmp_module.so;" /etc/nginx/nginx.conf
 
 RUN sed -i '13 a rtmp {\n\tinclude /etc/nginx/conf.d/rtmp/*.conf;\n}' /etc/nginx/nginx.conf
 
-CMD ["/sbin/nginx", "-g", "daemon off;"]
+CMD ["/sbin/nginx", "-g", "\"daemon off\";"]
