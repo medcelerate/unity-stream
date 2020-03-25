@@ -26,12 +26,12 @@ RUN yum install -y ffmpeg ffmpeg-devel
 
 RUN sed -i "1 i\daemon off;" /etc/nginx/nginx.conf
 
-RUN sed -i 's/worker_processes  1;/worker_processes  auto;/' /etc/nginx/nginx.conf
+#RUN sed -i 's/worker_processes  1;/worker_processes  auto;/' /etc/nginx/nginx.conf
 
-RUN sed -i '3i rtmp_auto_push on;' /etc/nginx/nginx.conf
+#RUN sed -i '3i rtmp_auto_push on;' /etc/nginx/nginx.conf
 
 RUN sed -i "1 i\load_module modules/ngx_rtmp_module.so;" /etc/nginx/nginx.conf
 
-RUN sed -i '13 a rtmp {\n\tinclude /etc/nginx/conf.d/rtmp/*.conf;\n}' /etc/nginx/nginx.conf
+RUN sed -i '15 a rtmp {\n\tinclude /etc/nginx/conf.d/rtmp/*.conf;\n}' /etc/nginx/nginx.conf
 
 CMD ["/sbin/nginx"]

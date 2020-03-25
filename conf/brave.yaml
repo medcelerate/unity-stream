@@ -1,0 +1,7 @@
+default_mixer_width: 1920
+default_mixer_height: 1080
+
+outputs:
+    - type: rtmp
+      uri: rtmp://webserver/live/index
+

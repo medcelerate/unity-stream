@@ -5,26 +5,34 @@ services:
     image: medcelerate/brave:latest
     volumes:
       - brave:/usr/local/share/brave
+      - ./conf/brave.yaml:/root/brave/config/default.yaml
     networks:
       main:
         aliases:
           - sourceswitcher
 
-
   rtmpproxy:
-    image: medcelerate/serg-nginx-rtmp:1cdd825
+    image: ossrs/srs:3
     ports:
       - "1935:1935"
-      - "8080:80"
-    volumes:
-      - ./conf/nginx_http.conf:/etc/nginx/conf.d/nginx_http.conf
-      - ./conf/nginx_rtmp.conf:/etc/nginx/conf.d/rtmp/nginx_rtmp.conf
-      - nginx:/tmp/hls
-      #- ./hls:/var/hls #Edit this to point to where your hls files should be written for your web server.
     networks:
       main:
         aliases:
           - rtmpproxy
+
+  webserver:
+    image: medcelerate/serg-nginx-rtmp:test3
+    ports:
+      - "8080:80"
+    volumes:
+      - ./conf/nginx_http.conf:/etc/nginx/conf.d/nginx_http.conf
+      - ./conf/nginx_rtmp.conf:/etc/nginx/conf.d/rtmp/nginx_rtmp.conf
+      - nginx:/var/hls
+      #- ./hls:/var/hls #Edit this to point to where your hls files should be written for your web server.
+    networks:
+      main:
+        aliases:
+          - webserver
 networks:
     main:
 
