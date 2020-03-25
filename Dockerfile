@@ -24,7 +24,7 @@ RUN rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-
 
 RUN yum install -y ffmpeg ffmpeg-devel
 
-RUN sed -i "i0 daemon off;" /etc/nginx/nginx.conf
+RUN sed -i "0i daemon off;" /etc/nginx/nginx.conf
 
 RUN sed -i 's/worker_processes  1;/worker_processes  auto;/' /etc/nginx/nginx.conf
 
