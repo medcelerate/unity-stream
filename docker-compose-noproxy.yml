@@ -21,7 +21,7 @@ services:
           - rtmpproxy
 
   webserver:
-    image: medcelerate/serg-nginx-rtmp:test3
+    image: medcelerate/serg-nginx-rtmp:3eb8edb
     ports:
       - "8080:80"
     volumes:
