@@ -2,10 +2,10 @@ version : "3.3"
 
 services:
   sourceswitcher:
-    image: medcelerate/brave:latest
+    image: medcelerate/brave:54242f7
     volumes:
       - brave:/usr/local/share/brave
-      - ./conf/brave.yaml:/root/brave/config/default.yaml
+      - ./conf/brave.yaml:/config/config.yaml
     networks:
       main:
         aliases:
@@ -27,7 +27,6 @@ services:
     volumes:
       - ./conf/nginx_http.conf:/etc/nginx/conf.d/nginx_http.conf
       - ./conf/nginx_rtmp.conf:/etc/nginx/conf.d/rtmp/nginx_rtmp.conf
-      - nginx:/var/hls
       #- ./hls:/var/hls #Edit this to point to where your hls files should be written for your web server.
     networks:
       main:
@@ -38,4 +37,3 @@ networks:
 
 volumes:
   brave:
-  nginx:
